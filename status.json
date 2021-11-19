@@ -1,8 +1,8 @@
-[
+{
+    "main":
     {
-        "branch": "main",
         "status": "blocked",
         "by": "rainersigwald",
         "because": "testing blocking"
     }
-]
+}
