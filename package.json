@@ -1,0 +1,24 @@
+{
+  "name": "branch-status-action",
+  "version": "1.0.0",
+  "description": "Testing automation around branch status implemented with GitHub Actions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rainersigwald/branch-status-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rainersigwald/branch-status-action/issues"
+  },
+  "homepage": "https://github.com/rainersigwald/branch-status-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  }
+}
