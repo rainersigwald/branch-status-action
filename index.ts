@@ -15,11 +15,9 @@ try {
 
     console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
 
-    var res = await httpm.HttpClient.get('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json').readBody();
+    var j = await httpm.getJson('https://api.github.com/repos/' + github.context.payload.pull_request.base.repo.full_name + '/branch-status/status.json');
 
-    console.log(res);
-
-    let obj = JSON.parse(res);
+    console.log(j);
 
 
 
