@@ -1,4 +1,5 @@
 const core = require('@actions/core');
+const httpm = require('@actions/http-client');
 const github = require('@actions/github');
 
 try {
@@ -12,6 +13,15 @@ try {
     // console.log(`The event payload: ${payload}`);
 
     console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
+
+    var res = await httpm.HttpClient.get('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json').readBody();
+
+    console.log(res);
+
+    let obj = JSON.parse(res);
+
+
+
 } catch (error) {
     core.setFailed(error.message);
 }
