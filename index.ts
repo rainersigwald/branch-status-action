@@ -17,11 +17,11 @@ try {
 
     let client = new httpm.HttpClient("getter");
 
-    client.getAgent
-
     var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json');
 
     console.log(j);
+
+    console.log(`Status: ${j.result[github.context.payload.pull_request.base.ref].status}`);
 
 
 } catch (error) {

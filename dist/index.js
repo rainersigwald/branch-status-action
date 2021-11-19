@@ -8510,11 +8510,11 @@ var github = __nccwpck_require__(1790);
                 // console.log(`The event payload: ${payload}`);
                 console.log("base branch: ".concat(github.context.payload.pull_request.base.ref));
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
-                client.getAgent;
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
             case 1:
                 j = _a.sent();
                 console.log(j);
+                console.log("Status: ".concat(j.result[github.context.payload.pull_request.base.ref].status));
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();
