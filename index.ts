@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const httpm = require('@actions/http-client');
+import * as httpm from '@actions/http-client';
 const github = require('@actions/github');
 
 (async () => {
@@ -15,10 +15,11 @@ try {
 
     console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
 
-    var j = await httpm.getJson('https://api.github.com/repos/' + github.context.payload.pull_request.base.repo.full_name + '/branch-status/status.json');
+    let client = new httpm.HttpClient();
+
+    var j = await client.getJson('https://api.github.com/repos/' + github.context.payload.pull_request.base.repo.full_name + '/branch-status/status.json');
 
     console.log(j);
-
 
 
 } catch (error) {
