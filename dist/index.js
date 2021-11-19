@@ -8443,8 +8443,10 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(4613);
+const httpm = __nccwpck_require__(674);
 const github = __nccwpck_require__(1790);
 
+(async () => {
 try {
     // `who-to-greet` input defined in action metadata file
     const nameToGreet = core.getInput('who-to-greet');
@@ -8456,9 +8458,19 @@ try {
     // console.log(`The event payload: ${payload}`);
 
     console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
+
+    var res = await httpm.HttpClient.get('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json').readBody();
+
+    console.log(res);
+
+    let obj = JSON.parse(res);
+
+
+
 } catch (error) {
     core.setFailed(error.message);
 }
+})();
 })();
 
 module.exports = __webpack_exports__;

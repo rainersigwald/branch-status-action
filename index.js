@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const httpm = require('@actions/http-client');
 const github = require('@actions/github');
 
+(async () => {
 try {
     // `who-to-greet` input defined in action metadata file
     const nameToGreet = core.getInput('who-to-greet');
@@ -25,3 +26,4 @@ try {
 } catch (error) {
     core.setFailed(error.message);
 }
+})();
