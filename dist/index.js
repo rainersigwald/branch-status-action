@@ -8527,11 +8527,11 @@ var core = __nccwpck_require__(4613);
 
 
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var token, nameToGreet, time, destinationBranch, client, j, octokit, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var token, nameToGreet, time, destinationBranch, client, j, octokit, _a, _b, _c, _d, error_1;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _e.trys.push([0, 3, , 4]);
                 token = core.getInput('repo-token');
                 nameToGreet = core.getInput('who-to-greet');
                 console.log("Hello ".concat(nameToGreet, "!"));
@@ -8542,22 +8542,26 @@ var core = __nccwpck_require__(4613);
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
             case 1:
-                j = _a.sent();
+                j = _e.sent();
                 console.log(j);
                 console.log("Branch '".concat(destinationBranch, "' is ").concat(j.result[destinationBranch].status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
                 octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
-                console.log(JSON.stringify(octokit.rest.pulls.list({
-                    owner: "rainersigwald",
-                    repo: "branch-status-action",
-                    state: 'open',
-                    base: destinationBranch
-                })));
-                return [3 /*break*/, 3];
+                _b = (_a = console).log;
+                _d = (_c = JSON).stringify;
+                return [4 /*yield*/, octokit.rest.pulls.list({
+                        owner: "rainersigwald",
+                        repo: "branch-status-action"
+                        // state: 'open',
+                        // base: destinationBranch
+                    })];
             case 2:
-                error_1 = _a.sent();
+                _b.apply(_a, [_d.apply(_c, [_e.sent()])]);
+                return [3 /*break*/, 4];
+            case 3:
+                error_1 = _e.sent();
                 core.setFailed(error_1.message);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); })();
