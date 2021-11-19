@@ -28,12 +28,13 @@ try {
     console.log(`Branch '${destinationBranch}' is ${j.result[destinationBranch].status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
 
     const octokit = github.getOctokit(token, {});
-    console.log(JSON.stringify(await octokit.rest.pulls.list({
+    const pulls = await octokit.rest.pulls.list({
         owner: "rainersigwald",
-        repo: "branch-status-action"
-        // state: 'open',
-        // base: destinationBranch
-    })));
+        repo: "branch-status-action",
+        base: destinationBranch,
+        state: "open"
+    });
+    console.log(JSON.stringify(pulls));
 
 } catch (error) {
     core.setFailed(error.message);
