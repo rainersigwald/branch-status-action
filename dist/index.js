@@ -8509,8 +8509,9 @@ var github = __nccwpck_require__(1790);
                 // const payload = JSON.stringify(github.context.payload, undefined, 2)
                 // console.log(`The event payload: ${payload}`);
                 console.log("base branch: ".concat(github.context.payload.pull_request.base.ref));
-                client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient();
-                return [4 /*yield*/, client.getJson('https://api.github.com/repos/' + github.context.payload.pull_request.base.repo.full_name + '/branch-status/status.json')];
+                client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
+                client.getAgent;
+                return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
             case 1:
                 j = _a.sent();
                 console.log(j);

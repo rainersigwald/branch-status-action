@@ -15,9 +15,11 @@ try {
 
     console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
 
-    let client = new httpm.HttpClient();
+    let client = new httpm.HttpClient("getter");
 
-    var j = await client.getJson('https://api.github.com/repos/' + github.context.payload.pull_request.base.repo.full_name + '/branch-status/status.json');
+    client.getAgent
+
+    var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json');
 
     console.log(j);
 
