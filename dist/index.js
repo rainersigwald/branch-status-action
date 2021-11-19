@@ -8434,6 +8434,35 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -8456,6 +8485,8 @@ var __webpack_exports__ = {};
 "use strict";
 __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_http_client__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(674);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(1790);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_1__);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8494,18 +8525,19 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 };
 var core = __nccwpck_require__(4613);
 
-var github = __nccwpck_require__(1790);
+
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var nameToGreet, time, destinationBranch, client, j, error_1;
+    var token, nameToGreet, time, destinationBranch, client, j, octokit, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
+                token = core.getInput('repo-token');
                 nameToGreet = core.getInput('who-to-greet');
                 console.log("Hello ".concat(nameToGreet, "!"));
                 time = (new Date()).toTimeString();
                 core.setOutput("time", time);
-                destinationBranch = github.context.payload.pull_request.base.ref;
+                destinationBranch = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request.base.ref;
                 console.log("base branch: ".concat(destinationBranch));
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
@@ -8513,6 +8545,13 @@ var github = __nccwpck_require__(1790);
                 j = _a.sent();
                 console.log(j);
                 console.log("Branch '".concat(destinationBranch, "' is ").concat(j.result[destinationBranch].status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
+                octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
+                console.log(JSON.stringify(octokit.rest.pulls.list({
+                    owner: "rainersigwald",
+                    repo: "branch-status-action",
+                    state: 'open',
+                    base: destinationBranch
+                })));
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();

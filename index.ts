@@ -1,9 +1,11 @@
 const core = require('@actions/core');
 import * as httpm from '@actions/http-client';
-const github = require('@actions/github');
+import * as  github from '@actions/github';
 
 (async () => {
 try {
+    const token = core.getInput('repo-token');
+
     // `who-to-greet` input defined in action metadata file
     const nameToGreet = core.getInput('who-to-greet');
     console.log(`Hello ${nameToGreet}!`);
@@ -24,6 +26,14 @@ try {
     console.log(j);
 
     console.log(`Branch '${destinationBranch}' is ${j.result[destinationBranch].status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+
+    const octokit = github.getOctokit(token, {});
+    console.log(JSON.stringify(octokit.rest.pulls.list({
+        owner: "rainersigwald",
+        repo: "branch-status-action"
+        // state: 'open',
+        // base: destinationBranch
+    })));
 
 } catch (error) {
     core.setFailed(error.message);
