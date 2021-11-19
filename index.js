@@ -11,7 +11,7 @@ try {
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
 
-    console.log(`base branch: ${base.context.payload.pull_request.ref}`);
+    console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
 } catch (error) {
     core.setFailed(error.message);
 }
