@@ -8496,7 +8496,7 @@ var core = __nccwpck_require__(4613);
 
 var github = __nccwpck_require__(1790);
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var nameToGreet, time, client, j, error_1;
+    var nameToGreet, time, destinationBranch, client, j, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -8505,16 +8505,14 @@ var github = __nccwpck_require__(1790);
                 console.log("Hello ".concat(nameToGreet, "!"));
                 time = (new Date()).toTimeString();
                 core.setOutput("time", time);
-                // Get the JSON webhook payload for the event that triggered the workflow
-                // const payload = JSON.stringify(github.context.payload, undefined, 2)
-                // console.log(`The event payload: ${payload}`);
-                console.log("base branch: ".concat(github.context.payload.pull_request.base.ref));
+                destinationBranch = github.context.payload.pull_request.base.ref;
+                console.log("base branch: ".concat(destinationBranch));
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
             case 1:
                 j = _a.sent();
                 console.log(j);
-                console.log("Status: ".concat(j.result[github.context.payload.pull_request.base.ref].status));
+                console.log("Branch '".concat(destinationBranch, "' is ").concat(j.result[destinationBranch].status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
                 return [3 /*break*/, 3];
             case 2:
                 error_1 = _a.sent();

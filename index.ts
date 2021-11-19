@@ -13,7 +13,9 @@ try {
     // const payload = JSON.stringify(github.context.payload, undefined, 2)
     // console.log(`The event payload: ${payload}`);
 
-    console.log(`base branch: ${github.context.payload.pull_request.base.ref}`);
+    const destinationBranch = github.context.payload.pull_request.base.ref;
+
+    console.log(`base branch: ${destinationBranch}`);
 
     let client = new httpm.HttpClient("getter");
 
@@ -21,8 +23,7 @@ try {
 
     console.log(j);
 
-    console.log(`Status: ${j.result[github.context.payload.pull_request.base.ref].status}`);
-
+    console.log(`Branch '${destinationBranch}' is ${j.result[destinationBranch].status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
 
 } catch (error) {
     core.setFailed(error.message);
