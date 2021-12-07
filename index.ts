@@ -29,7 +29,6 @@ try {
     var description = `No special state for '${destinationBranch}'`;
 
     if (branch != null) {
-
         description = `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`;
 
         console.log(description);
