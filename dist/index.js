@@ -8565,7 +8565,8 @@ var core = __nccwpck_require__(4613);
                         sha: payload.after,
                         state: state,
                         description: description,
-                        context: "Branch"
+                        target_url: "https://github.com/rainersigwald/branch-status-action/blob/branch-status/status.json#".concat(destinationBranch, "_is_").concat(branch === null || branch === void 0 ? void 0 : branch.status),
+                        context: "Destination branch"
                     })];
             case 2:
                 _a.sent();

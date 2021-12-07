@@ -49,7 +49,8 @@ try {
         sha: payload.after,
         state: state,
         description: description,
-        context: "Branch"
+        target_url: `https://github.com/rainersigwald/branch-status-action/blob/branch-status/status.json#${destinationBranch}_is_${branch?.status}`,
+        context: "Destination branch"
     });
 
 
