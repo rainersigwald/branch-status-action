@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Hello world action step
-        uses: ./ # Uses an action in the root directory
+        uses: ./eng/actions/branch-status
         id: hello
         with:
           who-to-greet: 'Mona the Octocat'
