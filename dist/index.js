@@ -8550,14 +8550,14 @@ var core = __nccwpck_require__(4613);
                     owner: payload.repository.owner.login,
                     repo: payload.repository.name,
                     sha: payload.before,
-                    state: branch.status !== "open" ? "success" : "pending",
+                    state: "pending"
                 };
                 console.log("Params ".concat(JSON.stringify(params)));
                 return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
                         owner: payload.repository.owner.login,
                         repo: payload.repository.name,
                         sha: payload.before,
-                        state: branch.status !== "open" ? "success" : "pending",
+                        state: "pending"
                     })];
             case 2:
                 _a.sent();

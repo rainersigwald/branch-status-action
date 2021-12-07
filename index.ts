@@ -30,7 +30,7 @@ try {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
             sha: payload.before,
-            state: branch.status !== "open" ? "success" : "pending",
+            state: "pending"
         };
 
         console.log(`Params ${JSON.stringify(params)}`);
@@ -39,7 +39,7 @@ try {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
             sha: payload.before,
-            state: branch.status !== "open" ? "success" : "pending",
+            state: "pending"
         });
 
         if (branch.status !== "open") {
