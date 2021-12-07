@@ -30,12 +30,17 @@ try {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
             sha: payload.before,
-            state: branch.status !== "open" ? 'success' : 'pending',
+            state: branch.status !== "open" ? "success" : "pending",
         };
 
-        console.log(`Params {JSON.stringify(params)}`);
+        console.log(`Params ${JSON.stringify(params)}`);
 
-        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', params)
+        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
+            owner: payload.repository.owner.login,
+            repo: payload.repository.name,
+            sha: payload.before,
+            state: branch.status !== "open" ? "success" : "pending",
+        });
 
         if (branch.status !== "open") {
             core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
