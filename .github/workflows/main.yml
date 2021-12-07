@@ -20,9 +20,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Hello world action step
+      - name: Validate destination branch status
         uses: ./eng/actions/branch-status
         id: hello
         with:
-          who-to-greet: 'Mona the Octocat'
           repo-token: ${{ secrets.GITHUB_TOKEN }}

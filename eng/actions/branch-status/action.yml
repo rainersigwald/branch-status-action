@@ -1,16 +1,9 @@
-name: 'Hello World'
-description: 'Greet someone and record the time'
+name: 'Check branch status'
+description: 'Block PR if the destination branch is not open for commits'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
   repo-token:
     description: 'Token for octokit operations'    
     required: true
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
 runs:
   using: 'node12'
   main: 'dist/index.js'
