@@ -8527,7 +8527,7 @@ var core = __nccwpck_require__(4613);
 
 
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var token, payload, payloadJson, destinationBranch, client, octokit, j, branch, error_1;
+    var token, payload, payloadJson, destinationBranch, client, octokit, j, branch, params, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -8546,12 +8546,14 @@ var core = __nccwpck_require__(4613);
                 console.log(j);
                 branch = j.result[destinationBranch];
                 if (!(branch != null)) return [3 /*break*/, 3];
-                return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
-                        owner: 'octocat',
-                        repo: 'hello-world',
-                        sha: payload.before,
-                        state: branch.status !== "open" ? 'success' : 'pending',
-                    })];
+                params = {
+                    owner: payload.repository.owner.login,
+                    repo: payload.repository.name,
+                    sha: payload.before,
+                    state: branch.status !== "open" ? 'success' : 'pending',
+                };
+                console.log("Params {JSON.stringify(params)}");
+                return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', params)];
             case 2:
                 _a.sent();
                 if (branch.status !== "open") {

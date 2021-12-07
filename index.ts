@@ -26,12 +26,16 @@ try {
     const branch = j.result[destinationBranch];
 
     if (branch != null) {
-        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
-            owner: 'octocat',
-            repo: 'hello-world',
+        const params = {
+            owner: payload.repository.owner.login,
+            repo: payload.repository.name,
             sha: payload.before,
             state: branch.status !== "open" ? 'success' : 'pending',
-        })
+        };
+
+        console.log(`Params {JSON.stringify(params)}`);
+
+        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', params)
 
         if (branch.status !== "open") {
             core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
