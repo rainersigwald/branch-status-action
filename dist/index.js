@@ -8541,7 +8541,7 @@ var core = __nccwpck_require__(4613);
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
                 octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json', {
-                        "Cache-Control": "no-cache"
+                        "Cache-Control": "no-store"
                     })];
             case 1:
                 j = _a.sent();

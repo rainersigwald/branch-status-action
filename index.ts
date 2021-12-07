@@ -21,7 +21,7 @@ try {
 
     var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json',
         {
-            "Cache-Control": "no-cache"
+            "Cache-Control": "no-store"
         });
 
     console.log(j);
