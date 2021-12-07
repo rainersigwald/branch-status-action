@@ -19,7 +19,10 @@ try {
 
     const octokit = github.getOctokit(token, {});
 
-    var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json');
+    var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json',
+        {
+            "Cache-Control": "no-cache"
+        });
 
     console.log(j);
 
