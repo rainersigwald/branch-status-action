@@ -38,7 +38,7 @@ try {
 
         if (branch.status === "blocked") {
             state = "failure";
-        } else if (branch.status === "blocked") {
+        } else if (branch.status === "open") {
             state = "success";
         } else {
             state = "pending";
