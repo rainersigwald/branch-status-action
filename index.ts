@@ -25,16 +25,25 @@ try {
 
     console.log(j);
 
-    console.log(`Branch '${destinationBranch}' is ${j.result[destinationBranch].status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+    const branch = j.result[destinationBranch];
 
-    const octokit = github.getOctokit(token, {});
-    const pulls = await octokit.rest.pulls.list({
-        owner: "rainersigwald",
-        repo: "branch-status-action",
-        base: destinationBranch,
-        state: "open"
-    });
-    console.log(JSON.stringify(pulls));
+    if (branch != null) {
+        if (branch.status !== "open") {
+            core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+        }
+        else {
+            console.log(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+        }
+    }
+
+    // const octokit = github.getOctokit(token, {});
+    // const pulls = await octokit.rest.pulls.list({
+    //     owner: "rainersigwald",
+    //     repo: "branch-status-action",
+    //     base: destinationBranch,
+    //     state: "open"
+    // });
+    // console.log(JSON.stringify(pulls));
 
 } catch (error) {
     core.setFailed(error.message);

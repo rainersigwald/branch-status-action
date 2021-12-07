@@ -8527,11 +8527,11 @@ var core = __nccwpck_require__(4613);
 
 
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var token, nameToGreet, time, destinationBranch, client, j, octokit, pulls, error_1;
+    var token, nameToGreet, time, destinationBranch, client, j, branch, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 token = core.getInput('repo-token');
                 nameToGreet = core.getInput('who-to-greet');
                 console.log("Hello ".concat(nameToGreet, "!"));
@@ -8544,23 +8544,21 @@ var core = __nccwpck_require__(4613);
             case 1:
                 j = _a.sent();
                 console.log(j);
-                console.log("Branch '".concat(destinationBranch, "' is ").concat(j.result[destinationBranch].status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
-                octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
-                return [4 /*yield*/, octokit.rest.pulls.list({
-                        owner: "rainersigwald",
-                        repo: "branch-status-action",
-                        base: destinationBranch,
-                        state: "open"
-                    })];
+                branch = j.result[destinationBranch];
+                if (branch != null) {
+                    if (branch.status !== "open") {
+                        core.setFailed("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
+                    }
+                    else {
+                        console.log("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
+                    }
+                }
+                return [3 /*break*/, 3];
             case 2:
-                pulls = _a.sent();
-                console.log(JSON.stringify(pulls));
-                return [3 /*break*/, 4];
-            case 3:
                 error_1 = _a.sent();
                 core.setFailed(error_1.message);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); })();
