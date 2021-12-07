@@ -8527,15 +8527,16 @@ var core = __nccwpck_require__(4613);
 
 
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var token, payload, destinationBranch, client, octokit, j, branch, error_1;
+    var token, payload, payloadJson, destinationBranch, client, octokit, j, branch, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
                 token = core.getInput('repo-token');
-                payload = JSON.stringify(_actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload, undefined, 2);
-                console.log("The event payload: ".concat(payload));
-                destinationBranch = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request.base.ref;
+                payload = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload;
+                payloadJson = JSON.stringify(payload, undefined, 2);
+                console.log("The event payload: ".concat(payloadJson));
+                destinationBranch = payload.pull_request.base.ref;
                 console.log("base branch: ".concat(destinationBranch));
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
                 octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
@@ -8548,7 +8549,7 @@ var core = __nccwpck_require__(4613);
                 return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
                         owner: 'octocat',
                         repo: 'hello-world',
-                        sha: "abc",
+                        sha: payload.before,
                         state: branch.status !== "open" ? 'success' : 'pending',
                     })];
             case 2:

@@ -6,11 +6,12 @@ import * as  github from '@actions/github';
 try {
     const token = core.getInput('repo-token');
 
+    const payload = github.context.payload;
     // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    const payloadJson = JSON.stringify(payload, undefined, 2)
+    console.log(`The event payload: ${payloadJson}`);
 
-    const destinationBranch = github.context.payload.pull_request.base.ref;
+    const destinationBranch = payload.pull_request.base.ref;
 
     console.log(`base branch: ${destinationBranch}`);
 
@@ -28,7 +29,7 @@ try {
         await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
             owner: 'octocat',
             repo: 'hello-world',
-            sha: "abc",
+            sha: payload.before,
             state: branch.status !== "open" ? 'success' : 'pending',
         })
 
