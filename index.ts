@@ -38,6 +38,8 @@ try {
 
         if (branch.status === "blocked") {
             state = "failure";
+        } else if (branch.status === "blocked") {
+            state = "success";
         } else {
             state = "pending";
         }

@@ -8555,6 +8555,9 @@ var core = __nccwpck_require__(4613);
                     if (branch.status === "blocked") {
                         state = "failure";
                     }
+                    else if (branch.status === "blocked") {
+                        state = "success";
+                    }
                     else {
                         state = "pending";
                     }
