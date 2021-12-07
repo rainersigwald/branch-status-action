@@ -1,8 +1,8 @@
 {
-    "main":
+    "release/1.0":
     {
-        "status": "open",
+        "status": "blocked",
         "by": "rainersigwald",
-        "because": "everything is gravy"
+        "because": "everything is 🔥"
     }
 }
