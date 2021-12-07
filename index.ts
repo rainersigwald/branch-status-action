@@ -25,34 +25,31 @@ try {
 
     const branch = j.result[destinationBranch];
 
+    var state: "failure" | "success" | "error" | "pending" = "success";
+    var description = `No special state for '${destinationBranch}'`;
+
     if (branch != null) {
-        const params = {
-            owner: payload.repository.owner.login,
-            repo: payload.repository.name,
-            sha: payload.after,
-            state: "pending",
-            description: `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`,
-            context: "Branch"
-        };
 
-        console.log(`Params ${JSON.stringify(params)}`);
+        description = `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`;
 
-        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
-            owner: payload.repository.owner.login,
-            repo: payload.repository.name,
-            sha: payload.after,
-            state: "pending",
-            description: `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`,
-            context: "Branch"
-        });
+        console.log(description);
 
-        // if (branch.status !== "open") {
-        //     core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
-        // }
-        // else {
-            console.log(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
-        // }
+        if (branch.status === "blocked") {
+            state = "failure";
+        } else {
+            state = "pending";
+        }
     }
+
+    await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
+        owner: payload.repository.owner.login,
+        repo: payload.repository.name,
+        sha: payload.after,
+        state: state,
+        description: description,
+        context: "Branch"
+    });
+
 
     // const pulls = await octokit.rest.pulls.list({
     //     owner: "rainersigwald",
