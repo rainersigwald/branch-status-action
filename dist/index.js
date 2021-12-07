@@ -8549,19 +8549,19 @@ var core = __nccwpck_require__(4613);
                 params = {
                     owner: payload.repository.owner.login,
                     repo: payload.repository.name,
-                    sha: payload.before,
+                    sha: payload.after,
                     state: "pending",
-                    description: "description",
-                    context: "context"
+                    description: "'".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because),
+                    context: "Branch"
                 };
                 console.log("Params ".concat(JSON.stringify(params)));
                 return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
                         owner: payload.repository.owner.login,
                         repo: payload.repository.name,
-                        sha: payload.before,
+                        sha: payload.after,
                         state: "pending",
-                        description: "description",
-                        context: "context"
+                        description: "'".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because),
+                        context: "Branch"
                     })];
             case 2:
                 _a.sent();

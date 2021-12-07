@@ -29,10 +29,10 @@ try {
         const params = {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
-            sha: payload.before,
+            sha: payload.after,
             state: "pending",
-            description: "description",
-            context: "context"
+            description: `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`,
+            context: "Branch"
         };
 
         console.log(`Params ${JSON.stringify(params)}`);
@@ -40,10 +40,10 @@ try {
         await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
-            sha: payload.before,
+            sha: payload.after,
             state: "pending",
-            description: "description",
-            context: "context"
+            description: `'${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`,
+            context: "Branch"
         });
 
         // if (branch.status !== "open") {
