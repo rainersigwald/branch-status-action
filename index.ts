@@ -30,7 +30,9 @@ try {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
             sha: payload.before,
-            state: "pending"
+            state: "pending",
+            description: "description",
+            context: "context"
         };
 
         console.log(`Params ${JSON.stringify(params)}`);
@@ -39,15 +41,17 @@ try {
             owner: payload.repository.owner.login,
             repo: payload.repository.name,
             sha: payload.before,
-            state: "pending"
+            state: "pending",
+            description: "description",
+            context: "context"
         });
 
-        if (branch.status !== "open") {
-            core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
-        }
-        else {
+        // if (branch.status !== "open") {
+        //     core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+        // }
+        // else {
             console.log(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
-        }
+        // }
     }
 
     // const pulls = await octokit.rest.pulls.list({

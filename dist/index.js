@@ -8550,23 +8550,26 @@ var core = __nccwpck_require__(4613);
                     owner: payload.repository.owner.login,
                     repo: payload.repository.name,
                     sha: payload.before,
-                    state: "pending"
+                    state: "pending",
+                    description: "description",
+                    context: "context"
                 };
                 console.log("Params ".concat(JSON.stringify(params)));
                 return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
                         owner: payload.repository.owner.login,
                         repo: payload.repository.name,
                         sha: payload.before,
-                        state: "pending"
+                        state: "pending",
+                        description: "description",
+                        context: "context"
                     })];
             case 2:
                 _a.sent();
-                if (branch.status !== "open") {
-                    core.setFailed("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
-                }
-                else {
-                    console.log("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
-                }
+                // if (branch.status !== "open") {
+                //     core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
+                // }
+                // else {
+                console.log("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
                 _a.label = 3;
             case 3: return [3 /*break*/, 5];
             case 4:
