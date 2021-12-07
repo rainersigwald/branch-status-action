@@ -6,14 +6,9 @@ import * as  github from '@actions/github';
 try {
     const token = core.getInput('repo-token');
 
-    // `who-to-greet` input defined in action metadata file
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
     // Get the JSON webhook payload for the event that triggered the workflow
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`);
+    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    console.log(`The event payload: ${payload}`);
 
     const destinationBranch = github.context.payload.pull_request.base.ref;
 
@@ -33,8 +28,8 @@ try {
         await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
             owner: 'octocat',
             repo: 'hello-world',
-            sha: 'sha',
-            state: branch.status !== "open" ? 'success' : 'pending'
+            sha: "abc",
+            state: branch.status !== "open" ? 'success' : 'pending',
         })
 
         if (branch.status !== "open") {
