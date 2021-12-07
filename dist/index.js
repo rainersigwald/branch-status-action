@@ -8527,11 +8527,11 @@ var core = __nccwpck_require__(4613);
 
 
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var token, nameToGreet, time, destinationBranch, client, j, branch, error_1;
+    var token, nameToGreet, time, destinationBranch, client, octokit, j, branch, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _a.trys.push([0, 4, , 5]);
                 token = core.getInput('repo-token');
                 nameToGreet = core.getInput('who-to-greet');
                 console.log("Hello ".concat(nameToGreet, "!"));
@@ -8540,25 +8540,34 @@ var core = __nccwpck_require__(4613);
                 destinationBranch = _actions_github__WEBPACK_IMPORTED_MODULE_1__.context.payload.pull_request.base.ref;
                 console.log("base branch: ".concat(destinationBranch));
                 client = new _actions_http_client__WEBPACK_IMPORTED_MODULE_0__.HttpClient("getter");
+                octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(token, {});
                 return [4 /*yield*/, client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json')];
             case 1:
                 j = _a.sent();
                 console.log(j);
                 branch = j.result[destinationBranch];
-                if (branch != null) {
-                    if (branch.status !== "open") {
-                        core.setFailed("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
-                    }
-                    else {
-                        console.log("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
-                    }
-                }
-                return [3 /*break*/, 3];
+                if (!(branch != null)) return [3 /*break*/, 3];
+                return [4 /*yield*/, octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
+                        owner: 'octocat',
+                        repo: 'hello-world',
+                        sha: 'sha',
+                        state: branch.status !== "open" ? 'success' : 'pending'
+                    })];
             case 2:
+                _a.sent();
+                if (branch.status !== "open") {
+                    core.setFailed("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
+                }
+                else {
+                    console.log("Branch '".concat(destinationBranch, "' is ").concat(branch.status, " by ").concat(j.result[destinationBranch].by, " because ").concat(j.result[destinationBranch].because));
+                }
+                _a.label = 3;
+            case 3: return [3 /*break*/, 5];
+            case 4:
                 error_1 = _a.sent();
                 core.setFailed(error_1.message);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); })();

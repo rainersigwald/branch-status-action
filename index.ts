@@ -21,6 +21,8 @@ try {
 
     let client = new httpm.HttpClient("getter");
 
+    const octokit = github.getOctokit(token, {});
+
     var j = await client.getJson('https://raw.githubusercontent.com/rainersigwald/branch-status-action/branch-status/status.json');
 
     console.log(j);
@@ -28,6 +30,13 @@ try {
     const branch = j.result[destinationBranch];
 
     if (branch != null) {
+        await octokit.request('POST /repos/{owner}/{repo}/statuses/{sha}', {
+            owner: 'octocat',
+            repo: 'hello-world',
+            sha: 'sha',
+            state: branch.status !== "open" ? 'success' : 'pending'
+        })
+
         if (branch.status !== "open") {
             core.setFailed(`Branch '${destinationBranch}' is ${branch.status} by ${j.result[destinationBranch].by} because ${j.result[destinationBranch].because}`);
         }
@@ -36,7 +45,6 @@ try {
         }
     }
 
-    // const octokit = github.getOctokit(token, {});
     // const pulls = await octokit.rest.pulls.list({
     //     owner: "rainersigwald",
     //     repo: "branch-status-action",
