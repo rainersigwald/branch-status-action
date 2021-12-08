@@ -24,4 +24,4 @@ jobs:
         uses: ./eng/actions/refresh-branch-status
         id: refresh
         with:
-          auth-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
