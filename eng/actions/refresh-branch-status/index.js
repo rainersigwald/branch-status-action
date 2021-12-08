@@ -42,17 +42,24 @@ async function run() {
     });
     // console.log(JSON.stringify(pulls, undefined, 2));
 
-    pulls.data.forEach(pr => {
-        console.log(`Getting checks for sha ${pr.head.sha}`);
+    for (const index in pulls) {
+        if (Object.hasOwnProperty.call(pulls, index)) {
+            const pr = pulls[index];
 
-        const checks = octokit.rest.checks.listForRef({
-            ...github.context.repo,
-            ref: pr.head.sha,
-            // check_name: "check-branch",
-            // filter: "latest"
-        });
+            console.log(`Getting checks for sha ${pr.head.sha}`);
 
-        console.log(JSON.stringify(checks, undefined, 2));
+            const checks = await octokit.rest.checks.listForRef({
+                ...github.context.repo,
+                ref: pr.head.sha,
+                // check_name: "check-branch",
+                // filter: "latest"
+            });
+
+            console.log(JSON.stringify(checks, undefined, 2));
+        }
+    }
+
+    pulls.data.forEach(async pr => {
     });
 
     // TODO: consider using PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}
