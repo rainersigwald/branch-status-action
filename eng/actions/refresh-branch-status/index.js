@@ -58,7 +58,18 @@ async function run() {
                 filter: "latest"
             });
 
-            console.log(JSON.stringify(checks, undefined, 2));
+            // console.log(JSON.stringify(checks, undefined, 2));
+
+            const id = checks.data.check_runs[0].id;
+
+            console.log(`Rerequesting check ${id}`);
+
+            const rerequest_response = await octokit.request('POST /repos/{owner}/{repo}/check-runs/{check_run_id}/rerequest', {
+                ...github.context.repo,
+                check_run_id: id
+            });
+
+            console.log(JSON.stringify(rerequest_response, undefined, 2));
         }
     }
 
