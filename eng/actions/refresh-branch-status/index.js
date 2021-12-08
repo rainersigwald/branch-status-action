@@ -44,6 +44,8 @@ async function run() {
     console.log(JSON.stringify(pulls, undefined, 2));
 
     pulls.data.forEach(pr => {
+        console.log(`Getting checks for sha ${pr.head.sha}`);
+
         const checks = octokit.rest.checks.listForRef({
             owner: repo_owner,
             repo: repo_name,
