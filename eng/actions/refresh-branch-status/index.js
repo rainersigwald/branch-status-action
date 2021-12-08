@@ -48,8 +48,8 @@ async function run() {
             owner: repo_owner,
             repo: repo_name,
             ref: pr.head.sha,
-            check_name: "check-branch",
-            filter: "latest"
+            // check_name: "check-branch",
+            // filter: "latest"
         });
 
         console.log(JSON.stringify(checks, undefined, 2));
