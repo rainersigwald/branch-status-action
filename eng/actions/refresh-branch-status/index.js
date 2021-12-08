@@ -43,7 +43,7 @@ async function run() {
 
     const pulls = pull_response.data;
 
-    console.log(JSON.stringify(pulls, undefined, 2));
+    // console.log(JSON.stringify(pulls, undefined, 2));
 
     for (const index in pulls) {
         if (Object.hasOwnProperty.call(pulls, index)) {
@@ -54,7 +54,7 @@ async function run() {
             const checks = await octokit.rest.checks.listForRef({
                 ...github.context.repo,
                 ref: pr.head.sha,
-                // check_name: "check-branch",
+                check_name: "check-branch",
                 // filter: "latest"
             });
 
