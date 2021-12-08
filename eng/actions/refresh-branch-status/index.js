@@ -36,13 +36,16 @@ async function run() {
 
     console.log("calling pulls");
 
-    const pulls = await octokit.rest.pulls.list({
+    const pull_response = await octokit.rest.pulls.list({
         ...github.context.repo,
         state: "open"
     });
+
+    const pulls = pull_response.data;
+
     console.log(JSON.stringify(pulls, undefined, 2));
 
-    for (const index in pulls.data) {
+    for (const index in pulls) {
         if (Object.hasOwnProperty.call(pulls, index)) {
             const pr = pulls[index];
 
@@ -58,9 +61,6 @@ async function run() {
             console.log(JSON.stringify(checks, undefined, 2));
         }
     }
-
-    pulls.data.forEach(async pr => {
-    });
 
     // TODO: consider using PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}
     // to update instead of just rerunning
