@@ -40,7 +40,7 @@ async function run() {
         ...github.context.repo,
         state: "open"
     });
-    // console.log(JSON.stringify(pulls, undefined, 2));
+    console.log(JSON.stringify(pulls, undefined, 2));
 
     for (const index in pulls.data) {
         if (Object.hasOwnProperty.call(pulls, index)) {
