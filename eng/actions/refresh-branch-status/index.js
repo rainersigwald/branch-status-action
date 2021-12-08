@@ -27,7 +27,7 @@ async function run() {
     // const pr_number = github.context.payload.issue.number;
     // const comment_user = github.context.payload.comment.user.login;
 
-    const token = core.getInput("auth_token", { required: true });
+    const token = core.getInput("repo_token", { required: true });
 
     console.log("Getting octokit");
 
