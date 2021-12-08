@@ -31,7 +31,7 @@ async function run() {
 
     console.log("Getting octokit");
 
-    let octokit = github.getOctokit(token);
+    const octokit = github.getOctokit(token);
     // let target_branch = core.getInput("target_branch", { required: true });
 
     console.log("calling pulls");
@@ -41,7 +41,22 @@ async function run() {
         repo: repo_name,
         state: "open"
     });
-    console.log(JSON.stringify(pulls));
+    console.log(JSON.stringify(pulls, undefined, 2));
+
+    pulls.data.forEach(pr => {
+        const checks = octokit.rest.checks.listForRef({
+            owner: repo_owner,
+            repo: repo_name,
+            ref: pr.head.sha,
+            check_name: "check-branch",
+            filter: "latest"
+        });
+
+        console.log(JSON.stringify(checks, undefined, 2));
+    });
+
+    // TODO: consider using PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}
+    // to update instead of just rerunning
 
 
     // try {
