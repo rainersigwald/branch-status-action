@@ -27,8 +27,12 @@ async function run() {
     // const pr_number = github.context.payload.issue.number;
     // const comment_user = github.context.payload.comment.user.login;
 
+    console.log("Getting octokit");
+
     let octokit = github.getOctokit(core.getInput("auth_token", { required: true }));
     // let target_branch = core.getInput("target_branch", { required: true });
+
+    console.log("calling pulls");
 
     const pulls = await octokit.rest.pulls.list({
         owner: repo_owner,
