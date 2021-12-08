@@ -37,18 +37,16 @@ async function run() {
     console.log("calling pulls");
 
     const pulls = await octokit.rest.pulls.list({
-        owner: repo_owner,
-        repo: repo_name,
+        ...github.context.repo,
         state: "open"
     });
-    console.log(JSON.stringify(pulls, undefined, 2));
+    // console.log(JSON.stringify(pulls, undefined, 2));
 
     pulls.data.forEach(pr => {
         console.log(`Getting checks for sha ${pr.head.sha}`);
 
         const checks = octokit.rest.checks.listForRef({
-            owner: repo_owner,
-            repo: repo_name,
+            ...github.context.repo,
             ref: pr.head.sha,
             // check_name: "check-branch",
             // filter: "latest"

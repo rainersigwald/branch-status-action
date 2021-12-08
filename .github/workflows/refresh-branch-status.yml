@@ -20,7 +20,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Validate destination branch status
+      - name: Update branch-status checks for open PRs
         uses: ./eng/actions/refresh-branch-status
         id: refresh
         with:
