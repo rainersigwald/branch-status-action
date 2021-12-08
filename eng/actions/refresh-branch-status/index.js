@@ -55,7 +55,7 @@ async function run() {
                 ...github.context.repo,
                 ref: pr.head.sha,
                 check_name: "check-branch",
-                // filter: "latest"
+                filter: "latest"
             });
 
             console.log(JSON.stringify(checks, undefined, 2));
