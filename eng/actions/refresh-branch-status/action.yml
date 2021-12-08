@@ -1,0 +1,9 @@
+name: 'Refresh branch status'
+description: 'Refresh the branch-status check for all open PRs'
+inputs:
+  repo-token:
+    description: 'Token for octokit operations'    
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
